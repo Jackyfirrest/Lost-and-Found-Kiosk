@@ -1,0 +1,202 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Lost and Found Kiosk App',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 99, 173, 68)),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Lost and Found Kiosk'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final _locationController =
+      TextEditingController.fromValue(const TextEditingValue(text: 'G07-公館'));
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(80.0),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("智慧失物招領", style: TextStyle(fontSize: 60)),
+              Spacer(
+                flex: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(
+                    flex: 1,
+                  ),
+                  ElevatedButton.icon(
+                    icon: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Icon(
+                        Icons.store,
+                        size: 60,
+                      ),
+                    ),
+                    label: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Text(
+                        "拾獲失物",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ClaimPasscodeScreen();
+                        }));
+                      },
+                      icon: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Icon(
+                          Icons.shopping_bag,
+                          size: 60,
+                        ),
+                      ),
+                      label: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Text("領取失物", style: TextStyle(fontSize: 60)),
+                      )),
+                  Spacer(
+                    flex: 1,
+                  )
+                ],
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: TextField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 2, color: Theme.of(context).primaryColor)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 2, color: Theme.of(context).focusColor)),
+                      labelText: 'Location'),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ClaimPasscodeScreen extends StatefulWidget {
+  const ClaimPasscodeScreen({super.key});
+
+  @override
+  State<ClaimPasscodeScreen> createState() => _ClaimPasscodeScreenState();
+}
+
+class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
+  final _passcodeController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(80.0),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("智慧失物招領", style: TextStyle(fontSize: 60)),
+              Spacer(
+                flex: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: TextField(
+                      controller: _passcodeController,
+                      decoration: InputDecoration(labelText: '輸入領取驗證碼'),
+                    ),
+                  )
+                ],
+              ),
+              Spacer(
+                flex: 1,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
