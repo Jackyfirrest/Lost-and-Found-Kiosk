@@ -11,11 +11,17 @@ class ClaimItemCheckScreen extends StatefulWidget {
 class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
   final _passcodeController = TextEditingController();
   late final Future claimInfo;
+  bool isMatch = false;
 
   @override
   void initState() {
     super.initState();
     claimInfo = queryWithPasscode(widget.passcode);
+    claimInfo.then((value) {
+      setState(() {
+        isMatch = true;
+      });
+    }, onError: (error) {});
   }
 
   @override
@@ -101,10 +107,14 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     Theme.of(context).colorScheme.background),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ClaimSuccessScreen()));
-                            },
+                            onPressed: isMatch
+                                ? () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ClaimSuccessScreen()));
+                                  }
+                                : null,
                             icon: Icon(
                               Icons.check,
                               size: 45,
@@ -138,6 +148,12 @@ class _ClaimSuccessScreenState extends State<ClaimSuccessScreen> {
     timer = Future.delayed(Duration(seconds: 10)).then((v) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.ignore();
   }
 
   @override

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'claimItemCheck.dart';
+import 'package:camera/camera.dart';
 
-void main() {
+late List<CameraDescription> cameraList;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameraList = await availableCameras();
   runApp(const MyApp());
 }
 
@@ -109,7 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 60),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScanObjectScreen()));
+                    },
                   ),
                   Spacer(
                     flex: 1,
@@ -264,6 +271,87 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                           size: 45,
                         ),
                         label: Text("確認")),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ScanObjectScreen extends StatefulWidget {
+  const ScanObjectScreen({super.key});
+
+  @override
+  State<ScanObjectScreen> createState() => _ScanObjectScreenState();
+}
+
+class _ScanObjectScreenState extends State<ScanObjectScreen> {
+  late CameraController _cameraController;
+  @override
+  void initState() {
+    super.initState();
+    _cameraController =
+        CameraController(cameraList.first, ResolutionPreset.high);
+    _cameraController.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    }, onError: (err) {
+      if (err is CameraException) {
+        switch (err.code) {
+          case 'CameraAccessDenied':
+            // Handle access errors here.
+            break;
+          default:
+            // Handle other errors here.
+            break;
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("請將物品放入掃描室中", style: TextStyle(fontSize: 60)),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 80.0),
+                  child: SizedBox(
+                    height: 80,
+                    width: 160,
+                    child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.background),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.check,
+                          size: 45,
+                        ),
+                        label: Text("掃描")),
                   ),
                 ),
               )

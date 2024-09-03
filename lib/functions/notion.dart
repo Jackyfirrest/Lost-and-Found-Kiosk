@@ -143,13 +143,16 @@ Future<List<String>> queryWithPasscode(String itemId) async {
           page['properties']['name']['rich_text'][0]["plain_text"]
         ];
       } catch (exception) {
-        throw Exception("item not claimed");
+        throw 'item not claimed';
       }
     } catch (exception) {
-      throw Exception("no matching item");
+      if (exception == 'item not claimed')
+        throw Exception("item not claimed");
+      else
+        throw Exception("no matching item");
     }
   }
-  throw Exception("can not query data base with passcode");
+  throw Exception("can not query database with passcode");
 }
 
 void main() async {
