@@ -335,6 +335,22 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("請將物品放入掃描室中", style: TextStyle(fontSize: 60)),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Container(
+                  //width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        width: 0, color: Theme.of(context).primaryColor),
+                  ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: CameraPreview(_cameraController)),
+                ),
+              ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
