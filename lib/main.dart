@@ -195,7 +195,7 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("智慧失物招領", style: TextStyle(fontSize: 60)),
+              Text("請輸入領取驗證碼", style: TextStyle(fontSize: 60)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

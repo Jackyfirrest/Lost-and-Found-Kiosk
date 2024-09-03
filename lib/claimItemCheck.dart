@@ -101,7 +101,10 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     Theme.of(context).colorScheme.background),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ClaimSuccessScreen()));
+                            },
                             icon: Icon(
                               Icons.check,
                               size: 45,
@@ -116,6 +119,47 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ClaimSuccessScreen extends StatefulWidget {
+  const ClaimSuccessScreen({super.key});
+
+  @override
+  State<ClaimSuccessScreen> createState() => _ClaimSuccessScreenState();
+}
+
+class _ClaimSuccessScreenState extends State<ClaimSuccessScreen> {
+  late final Future timer;
+  @override
+  void initState() {
+    super.initState();
+    timer = Future.delayed(Duration(seconds: 10)).then((v) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Padding(
+          padding: const EdgeInsets.only(left: 80.0, top: 80),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text("請領取物品並關上門", style: TextStyle(fontSize: 60)),
+            Spacer(),
+          ])),
     );
   }
 }
