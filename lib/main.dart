@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'claimItemCheck.dart';
 
 void main() {
   runApp(const MyApp());
@@ -169,15 +170,12 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(80.0),
+        padding: const EdgeInsets.only(left: 80.0, top: 80),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("智慧失物招領", style: TextStyle(fontSize: 60)),
-              Spacer(
-                flex: 1,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -187,12 +185,63 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                       controller: _passcodeController,
                       decoration: InputDecoration(labelText: '輸入領取驗證碼'),
                     ),
+                  ),
+                  Container(
+                    height: 540,
+                    width: 420,
+                    padding: EdgeInsets.all(80),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      children: List.generate(11, (index) {
+                        index = index + 1;
+                        if (index == 10) index = 0;
+                        if (index == 11) {
+                          return OutlinedButton(
+                              onPressed: () {
+                                final oldText = _passcodeController.text;
+                                if (oldText.isNotEmpty) {
+                                  _passcodeController.text =
+                                      oldText.substring(0, oldText.length - 1);
+                                }
+                              },
+                              child: Icon(Icons.arrow_back));
+                        }
+                        return OutlinedButton(
+                            onPressed: () {
+                              _passcodeController.text =
+                                  _passcodeController.text + index.toString();
+                            },
+                            child: Text(index.toString()));
+                      }),
+                    ),
                   )
                 ],
               ),
-              Spacer(
-                flex: 1,
-              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 80.0),
+                  child: SizedBox(
+                    height: 80,
+                    width: 160,
+                    child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.background),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return ClaimItemCheckScreen();
+                          }));
+                        },
+                        icon: Icon(Icons.check),
+                        label: Text("確認")),
+                  ),
+                ),
+              )
             ],
           ),
         ),
