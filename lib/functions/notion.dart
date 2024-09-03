@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'keys.dart';
 import 'package:http/http.dart' as http;
 import 'imgur.dart';
@@ -116,6 +117,39 @@ Future<String> addPhotoToNotionPage(String pageId, XFile image) async {
     return 'success';
   }
   return response.body;
+}
+
+Future<List<String>> queryWithPasscode(String itemId) async {
+  final response = await http.post(
+      Uri.parse('https://api.notion.com/v1/databases/${databaseId}/query'),
+      headers: {
+        'Authorization': 'Bearer ' "${notionSecret}" '',
+        "Content-Type": "application/json",
+        "Notion-Version": "2022-06-28"
+      },
+      body: json.encode({
+        "filter": {
+          "property": "number",
+          "rich_text": {"equals": "${itemId}"}
+        }
+      }));
+  final dynamic page;
+  if (response.statusCode == 200) {
+    try {
+      page = json.decode(response.body)['results'][0];
+      try {
+        return [
+          page['properties']['items']['rich_text'][0]["plain_text"],
+          page['properties']['name']['rich_text'][0]["plain_text"]
+        ];
+      } catch (exception) {
+        throw Exception("item not claimed");
+      }
+    } catch (exception) {
+      throw Exception("no matching item");
+    }
+  }
+  throw Exception("can not query data base with passcode");
 }
 
 void main() async {

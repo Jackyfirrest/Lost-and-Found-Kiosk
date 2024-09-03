@@ -68,6 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
         padding: const EdgeInsets.all(80.0),
         child: Center(
@@ -169,6 +179,16 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
         padding: const EdgeInsets.only(left: 80.0, top: 80),
         child: Center(
@@ -234,10 +254,15 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return ClaimItemCheckScreen();
+                            return ClaimItemCheckScreen(
+                              passcode: _passcodeController.text,
+                            );
                           }));
                         },
-                        icon: Icon(Icons.check),
+                        icon: Icon(
+                          Icons.check,
+                          size: 45,
+                        ),
                         label: Text("確認")),
                   ),
                 ),
