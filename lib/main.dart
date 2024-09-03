@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'claimItemCheck.dart';
 import 'package:camera/camera.dart';
+import 'identifyObject.dart';
+import 'functions/gemini.dart';
 
 late List<CameraDescription> cameraList;
 void main() async {
@@ -115,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScanObjectScreen()));
+                          builder: (context) => ScanObjectScreen(
+                              location: _locationController.text)));
                     },
                   ),
                   Spacer(
@@ -283,7 +286,8 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
 }
 
 class ScanObjectScreen extends StatefulWidget {
-  const ScanObjectScreen({super.key});
+  const ScanObjectScreen({super.key, required this.location});
+  final String location;
 
   @override
   State<ScanObjectScreen> createState() => _ScanObjectScreenState();
@@ -362,7 +366,15 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.background),
-                        onPressed: () {},
+                        onPressed: () {
+                          _cameraController.takePicture().then((XFile file) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => IdentifyObjectScreen(
+                                    identifyResult: identifyWithGemini(file),
+                                    location: widget.location,
+                                    image: file)));
+                          });
+                        },
                         icon: Icon(
                           Icons.check,
                           size: 45,
