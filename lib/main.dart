@@ -177,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       labelText: 'Location',
                       hintStyle: GoogleFonts.notoSansTc(),
                       labelStyle: GoogleFonts.notoSansTc()),
+                  style: GoogleFonts.notoSansTc(),
                 ),
               )
             ],
