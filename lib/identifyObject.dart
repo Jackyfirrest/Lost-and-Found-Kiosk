@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'functions/notion.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class IdentifyObjectScreen extends StatefulWidget {
   const IdentifyObjectScreen(
@@ -38,7 +39,9 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("請確認辨識結果", style: TextStyle(fontSize: 60)),
+            Text("請確認辨識結果",
+                style:
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: DefaultTextStyle(
@@ -64,15 +67,16 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                               children: [
                                 Text(
                                   object.toString().toUpperCase(),
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontSize: Theme.of(context)
-                                          .textTheme
-                                          .headlineLarge!
-                                          .fontSize,
-                                      fontWeight: FontWeight.bold),
+                                  style: GoogleFonts.notoSansTc(
+                                      textStyle: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                          fontSize: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .fontSize,
+                                          fontWeight: FontWeight.bold)),
                                 ),
                                 Text(
                                   descriptions[0] +
@@ -80,25 +84,27 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                                       descriptions[1] +
                                       ', ' +
                                       descriptions[2],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontSize: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .fontSize),
+                                  style: GoogleFonts.notoSansTc(
+                                      textStyle: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                          fontSize: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .fontSize)),
                                 ),
                                 Text(
                                   color[0] + ', ' + color[1],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontSize: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .fontSize),
+                                  style: GoogleFonts.notoSansTc(
+                                      textStyle: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                          fontSize: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .fontSize)),
                                 ),
                               ],
                             );
@@ -112,14 +118,15 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                                   padding: const EdgeInsets.all(20.0),
                                   child: Text(
                                     '辨識中...',
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                        fontSize: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .fontSize),
+                                    style: GoogleFonts.notoSansTc(
+                                        textStyle: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .fontSize)),
                                   ),
                                 ),
                               ],
@@ -152,7 +159,10 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                             Icons.cancel_outlined,
                             size: 45,
                           ),
-                          label: Text("錯誤")),
+                          label: Text(
+                            "錯誤",
+                            style: GoogleFonts.notoSansTc(),
+                          )),
                     ),
                   ),
                   Padding(
@@ -176,7 +186,10 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                             Icons.check,
                             size: 45,
                           ),
-                          label: Text("正確")),
+                          label: Text(
+                            "正確",
+                            style: GoogleFonts.notoSansTc(),
+                          )),
                     ),
                   ),
                 ],
@@ -224,7 +237,9 @@ class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("請輸入手機號碼", style: TextStyle(fontSize: 60)),
+            Text("請輸入手機號碼",
+                style:
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -232,7 +247,9 @@ class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: TextField(
                     controller: _cellphoneNumberController,
-                    decoration: InputDecoration(labelText: '輸入手機號碼'),
+                    decoration: InputDecoration(
+                        labelText: '輸入手機號碼',
+                        labelStyle: GoogleFonts.notoSansTc()),
                   ),
                 ),
                 Container(
@@ -305,7 +322,10 @@ class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
                             ),
                       label: isUploading
                           ? CircularProgressIndicator()
-                          : Text("確認")),
+                          : Text(
+                              "確認",
+                              style: GoogleFonts.notoSansTc(),
+                            )),
                 ),
               ),
             )
@@ -356,7 +376,9 @@ class _DropSuccessScreenState extends State<DropSuccessScreen> {
           padding: const EdgeInsets.only(left: 80.0, top: 80),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("請將物品放入置物櫃中並關門", style: TextStyle(fontSize: 60)),
+            Text("請將物品放入置物櫃中並關門",
+                style:
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
             Spacer(),
           ])),
     );

@@ -5,6 +5,7 @@ import 'identifyObject.dart';
 import 'functions/gemini.dart';
 import 'functions/mjpeg.dart';
 import 'package:process_run/shell.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final shell = Shell();
 void main() async {
@@ -92,7 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("智慧失物招領", style: TextStyle(fontSize: 60)),
+              Text("智慧失物招領",
+                  style: GoogleFonts.notoSansTc(
+                      textStyle: TextStyle(fontSize: 60))),
               Spacer(
                 flex: 1,
               ),
@@ -114,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(30.0),
                       child: Text(
                         "拾獲失物",
-                        style: TextStyle(fontSize: 60),
+                        style: GoogleFonts.notoSansTc(
+                            textStyle: TextStyle(fontSize: 60)),
                       ),
                     ),
                     onPressed: () {
@@ -145,7 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       label: Padding(
                         padding: const EdgeInsets.all(30),
-                        child: Text("領取失物", style: TextStyle(fontSize: 60)),
+                        child: Text("領取失物",
+                            style: GoogleFonts.notoSansTc(
+                                textStyle: TextStyle(fontSize: 60))),
                       )),
                   Spacer(
                     flex: 1,
@@ -168,7 +174,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
                               width: 2, color: Theme.of(context).focusColor)),
-                      labelText: 'Location'),
+                      labelText: 'Location',
+                      hintStyle: GoogleFonts.notoSansTc(),
+                      labelStyle: GoogleFonts.notoSansTc()),
                 ),
               )
             ],
@@ -207,7 +215,9 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("請輸入領取驗證碼", style: TextStyle(fontSize: 60)),
+              Text("請輸入領取驗證碼",
+                  style: GoogleFonts.notoSansTc(
+                      textStyle: TextStyle(fontSize: 60))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -215,7 +225,9 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: TextField(
                       controller: _passcodeController,
-                      decoration: InputDecoration(labelText: '輸入領取驗證碼'),
+                      decoration: InputDecoration(
+                          labelText: '輸入領取驗證碼',
+                          labelStyle: GoogleFonts.notoSansTc()),
                     ),
                   ),
                   Container(
@@ -275,7 +287,10 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                           Icons.check,
                           size: 45,
                         ),
-                        label: Text("確認")),
+                        label: Text(
+                          "確認",
+                          style: GoogleFonts.notoSansTc(),
+                        )),
                   ),
                 ),
               )
@@ -321,7 +336,9 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("請將物品放入掃描室中", style: TextStyle(fontSize: 60)),
+              Text("請將物品放入掃描室中",
+                  style: GoogleFonts.notoSansTc(
+                      textStyle: TextStyle(fontSize: 60))),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Container(
@@ -366,7 +383,10 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                           Icons.camera_alt,
                           size: 45,
                         ),
-                        label: Text("掃描")),
+                        label: Text(
+                          "掃描",
+                          style: GoogleFonts.notoSansTc(),
+                        )),
                   ),
                 ),
               )

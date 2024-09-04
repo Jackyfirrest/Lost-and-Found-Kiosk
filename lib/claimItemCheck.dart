@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'functions/notion.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ClaimItemCheckScreen extends StatefulWidget {
   const ClaimItemCheckScreen({super.key, required this.passcode});
@@ -43,7 +44,9 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("請確認以下資訊是否正確？", style: TextStyle(fontSize: 60)),
+              Text("請確認以下資訊是否正確？",
+                  style: GoogleFonts.notoSansTc(
+                      textStyle: TextStyle(fontSize: 60))),
               Spacer(),
               FutureBuilder(
                   future: claimInfo,
@@ -56,13 +59,15 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('領取物品：${snapshot.data[0]}',
-                                  style: TextStyle(
+                                  style: GoogleFonts.notoSansTc(
+                                      textStyle: TextStyle(
                                     fontSize: 30,
-                                  )),
+                                  ))),
                               Text('領取人：${snapshot.data[1]}',
-                                  style: TextStyle(
+                                  style: GoogleFonts.notoSansTc(
+                                      textStyle: TextStyle(
                                     fontSize: 30,
-                                  ))
+                                  )))
                             ],
                           ),
                         ),
@@ -95,7 +100,10 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
                               Icons.cancel_outlined,
                               size: 45,
                             ),
-                            label: Text("錯誤")),
+                            label: Text(
+                              "錯誤",
+                              style: GoogleFonts.notoSansTc(),
+                            )),
                       ),
                     ),
                     Padding(
@@ -119,7 +127,10 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
                               Icons.check,
                               size: 45,
                             ),
-                            label: Text("確認")),
+                            label: Text(
+                              "確認",
+                              style: GoogleFonts.notoSansTc(),
+                            )),
                       ),
                     ),
                   ],
@@ -173,7 +184,9 @@ class _ClaimSuccessScreenState extends State<ClaimSuccessScreen> {
           padding: const EdgeInsets.only(left: 80.0, top: 80),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("請領取物品並關上門", style: TextStyle(fontSize: 60)),
+            Text("請領取物品並關上門",
+                style:
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
             Spacer(),
           ])),
     );
