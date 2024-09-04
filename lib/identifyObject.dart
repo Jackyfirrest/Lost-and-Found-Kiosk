@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
+import 'functions/notion.dart';
 
 class IdentifyObjectScreen extends StatefulWidget {
   const IdentifyObjectScreen(
@@ -18,6 +19,7 @@ class IdentifyObjectScreen extends StatefulWidget {
 }
 
 class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
+  var jsonresult;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +54,7 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                         future: widget.identifyResult,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            final jsonresult = jsonDecode(snapshot.data);
+                            jsonresult = jsonDecode(snapshot.data);
                             final object = jsonresult['object'];
                             final descriptions = jsonresult['description'];
                             final color = jsonresult['color'];
@@ -162,12 +164,19 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   Theme.of(context).colorScheme.background),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EnterCellPhoneScreen(
+                                      jsonScanResult: jsonresult,
+                                      image: widget.image,
+                                      location: widget.location,
+                                    )));
+                          },
                           icon: Icon(
                             Icons.check,
                             size: 45,
                           ),
-                          label: Text("確認")),
+                          label: Text("正確")),
                     ),
                   ),
                 ],
@@ -176,6 +185,180 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class EnterCellPhoneScreen extends StatefulWidget {
+  const EnterCellPhoneScreen(
+      {super.key,
+      required this.jsonScanResult,
+      required this.image,
+      required this.location});
+  final jsonScanResult;
+  final image;
+  final String location;
+
+  @override
+  State<EnterCellPhoneScreen> createState() => _EnterCellPhoneScreenState();
+}
+
+class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
+  final _cellphoneNumberController = TextEditingController();
+  bool isUploading = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("請輸入手機號碼", style: TextStyle(fontSize: 60)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: TextField(
+                    controller: _cellphoneNumberController,
+                    decoration: InputDecoration(labelText: '輸入手機號碼'),
+                  ),
+                ),
+                Container(
+                  height: 540,
+                  width: 420,
+                  padding: EdgeInsets.all(80),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    children: List.generate(11, (index) {
+                      index = index + 1;
+                      if (index == 10) index = 0;
+                      if (index == 11) {
+                        return OutlinedButton(
+                            onPressed: () {
+                              final oldText = _cellphoneNumberController.text;
+                              if (oldText.isNotEmpty) {
+                                _cellphoneNumberController.text =
+                                    oldText.substring(0, oldText.length - 1);
+                              }
+                            },
+                            child: Icon(Icons.arrow_back));
+                      }
+                      return OutlinedButton(
+                          onPressed: () {
+                            _cellphoneNumberController.text =
+                                _cellphoneNumberController.text +
+                                    index.toString();
+                          },
+                          child: Text(index.toString()));
+                    }),
+                  ),
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 80.0),
+                child: SizedBox(
+                  height: 80,
+                  width: 160,
+                  child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background),
+                      onPressed: () {
+                        setState(() {
+                          isUploading = true;
+                        });
+                        uploadFoundObject(
+                                widget.jsonScanResult,
+                                widget.location,
+                                _cellphoneNumberController.text)
+                            .then((pageId) {
+                          addPhotoToNotionPage(pageId, widget.image)
+                              .then((value) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DropSuccessScreen()));
+                          });
+                        });
+                      },
+                      icon: isUploading
+                          ? Container()
+                          : Icon(
+                              Icons.check,
+                              size: 45,
+                            ),
+                      label: isUploading
+                          ? CircularProgressIndicator()
+                          : Text("確認")),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DropSuccessScreen extends StatefulWidget {
+  const DropSuccessScreen({super.key});
+
+  @override
+  State<DropSuccessScreen> createState() => _DropSuccessScreenState();
+}
+
+class _DropSuccessScreenState extends State<DropSuccessScreen> {
+  late final Future timer;
+  @override
+  void initState() {
+    super.initState();
+    timer = Future.delayed(Duration(seconds: 10)).then((v) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.ignore();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+        child: Icon(
+          Icons.home,
+          size: 30,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Padding(
+          padding: const EdgeInsets.only(left: 80.0, top: 80),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text("請將物品放入置物櫃中並關門", style: TextStyle(fontSize: 60)),
+            Spacer(),
+          ])),
     );
   }
 }

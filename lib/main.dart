@@ -376,7 +376,7 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                           });
                         },
                         icon: Icon(
-                          Icons.check,
+                          Icons.camera_alt,
                           size: 45,
                         ),
                         label: Text("掃描")),

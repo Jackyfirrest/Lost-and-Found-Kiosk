@@ -9,7 +9,7 @@ const databaseId =
     'e7c0175bd9d54e1e9a08a51ec41b18ac'; // '9aeebd9e7243419e88eaebca530df04f';
 
 Future<String> uploadFoundObject(
-    Map<String, dynamic> object, String location) async {
+    Map<String, dynamic> object, String location, String phone) async {
   final requestBody = <String, dynamic>{
     "parent": {"type": "database_id", "database_id": databaseId},
     "properties": {
@@ -71,7 +71,7 @@ Future<String> uploadFoundObject(
         "rich_text": [
           {
             "type": "text",
-            "text": {"content": "phone number unimplemented"}
+            "text": {"content": phone}
           }
         ]
       }
@@ -174,5 +174,5 @@ void main() async {
     "color": ["testA", "testB"]
   };
 
-  print(await uploadFoundObject(map, 'G07-Gongguan'));
+  print(await uploadFoundObject(map, 'G07-Gongguan', '0911222333'));
 }

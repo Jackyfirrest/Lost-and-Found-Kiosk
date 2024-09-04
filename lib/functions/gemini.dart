@@ -21,9 +21,9 @@ Future<String> identifyWithGemini(XFile image) async {
 
   final response = await model.generateContent(payload);
 
-  print(response.text);
+  //print(response.text);
   final response_text = response.text!.substring(7, response.text!.length - 3);
-  print(response_text);
+  //print(response_text);
 
   return response_text;
 }
