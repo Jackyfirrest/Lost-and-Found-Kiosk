@@ -1,5 +1,5 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 import 'dart:convert';
 import 'functions/notion.dart';
 
@@ -12,7 +12,7 @@ class IdentifyObjectScreen extends StatefulWidget {
 
   final Future identifyResult;
   final String location;
-  final XFile image;
+  final Uint8List image;
 
   @override
   State<IdentifyObjectScreen> createState() => _IdentifyObjectScreenState();

@@ -39,6 +39,10 @@ dependencies:
   camera: ^0.11.0+2
   flutter_image_compress: ^2.3.0
   google_generative_ai: ^0.4.5
+  process_run: ^1.0.1
+  flutter_hooks: ^0.20.5
+  visibility_detector: ^0.4.0+2
+  rpi_gpio: ^0.10.0
 
 dev_dependencies:
   flutter_test:

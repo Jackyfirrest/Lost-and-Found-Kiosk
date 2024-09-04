@@ -3,11 +3,13 @@ import 'claimItemCheck.dart';
 import 'package:camera/camera.dart';
 import 'identifyObject.dart';
 import 'functions/gemini.dart';
+import 'functions/mjpeg.dart';
+import 'package:process_run/shell.dart';
 
-late List<CameraDescription> cameraList;
+final shell = Shell();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  cameraList = await availableCameras();
+  await shell.run("sudo motion -c /home/ben-rpi/Desktop/local_stream.conf");
   runApp(const MyApp());
 }
 
@@ -294,29 +296,10 @@ class ScanObjectScreen extends StatefulWidget {
 }
 
 class _ScanObjectScreenState extends State<ScanObjectScreen> {
-  late CameraController _cameraController;
+  final _mjpegController = MjpegPreprocessorWithFrameGrabber();
   @override
   void initState() {
     super.initState();
-    _cameraController =
-        CameraController(cameraList.first, ResolutionPreset.high);
-    _cameraController.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    }, onError: (err) {
-      if (err is CameraException) {
-        switch (err.code) {
-          case 'CameraAccessDenied':
-            // Handle access errors here.
-            break;
-          default:
-            // Handle other errors here.
-            break;
-        }
-      }
-    });
   }
 
   @override
@@ -352,7 +335,11 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                   ),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(14),
-                      child: CameraPreview(_cameraController)),
+                      child: Mjpeg(
+                        stream: 'http://localhost:8081',
+                        isLive: true,
+                        preprocessor: _mjpegController,
+                      )),
                 ),
               ),
               Align(
@@ -367,13 +354,13 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                             backgroundColor:
                                 Theme.of(context).colorScheme.background),
                         onPressed: () {
-                          _cameraController.takePicture().then((XFile file) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => IdentifyObjectScreen(
-                                    identifyResult: identifyWithGemini(file),
-                                    location: widget.location,
-                                    image: file)));
-                          });
+                          final imageU8List = _mjpegController.u8list;
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => IdentifyObjectScreen(
+                                  identifyResult:
+                                      identifyWithGemini(imageU8List),
+                                  location: widget.location,
+                                  image: imageU8List)));
                         },
                         icon: Icon(
                           Icons.camera_alt,
