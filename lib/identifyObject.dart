@@ -5,7 +5,6 @@ import 'functions/notion.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rpi_gpio/rpi_gpio.dart';
 
-
 class IdentifyObjectScreen extends StatefulWidget {
   const IdentifyObjectScreen(
       {super.key,
@@ -377,23 +376,18 @@ class _DropSuccessScreenState extends State<DropSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).popUntil((route) => route.isFirst);
-        },
-        child: Icon(
-          Icons.home,
-          size: 30,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
           padding: const EdgeInsets.only(left: 80.0, top: 80),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("請將物品放入置物櫃中並關門",
+            Spacer(),
+            Text("感謝！請將物品放入置物櫃中並關門",
                 style:
                     GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Icon(Icons.lock, size: 80),
+            ),
             Spacer(),
           ])),
     );
