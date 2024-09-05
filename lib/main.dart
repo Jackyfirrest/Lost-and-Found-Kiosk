@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 final shell = Shell();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await shell.run("sudo motion -c /home/ben/Desktop/local_stream.conf");
+  await shell.run("sudo motion -c /home/ben-rpi/Desktop/local_stream.conf");
   runApp(const MyApp());
 }
 
