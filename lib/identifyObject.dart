@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'functions/notion.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpi_gpio/rpi_gpio.dart';
+
 
 class IdentifyObjectScreen extends StatefulWidget {
   const IdentifyObjectScreen(
@@ -345,9 +347,20 @@ class DropSuccessScreen extends StatefulWidget {
 
 class _DropSuccessScreenState extends State<DropSuccessScreen> {
   late final Future timer;
+  late final _gpio;
+  late final _lock;
+
   @override
   void initState() {
     super.initState();
+    initialize_RpiGpio().then((gpio) {
+      _gpio = gpio;
+      _lock = gpio.output(37);
+      _lock.value = true;
+      Future.delayed(Duration(seconds: 3)).then((v) {
+        _lock.value = false;
+      });
+    });
     timer = Future.delayed(Duration(seconds: 10)).then((v) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     });
@@ -357,6 +370,8 @@ class _DropSuccessScreenState extends State<DropSuccessScreen> {
   void dispose() {
     super.dispose();
     timer.ignore();
+    _lock.value = false;
+    _gpio.dispose();
   }
 
   @override
