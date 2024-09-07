@@ -40,14 +40,14 @@ class _ClaimItemCheckScreenState extends State<ClaimItemCheckScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
-        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        padding: const EdgeInsets.only(left: 40.0, top: 30),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("請確認以下資訊是否正確？",
                   style: GoogleFonts.notoSansTc(
-                      textStyle: TextStyle(fontSize: 60))),
+                      textStyle: TextStyle(fontSize: 40))),
               Spacer(),
               FutureBuilder(
                   future: claimInfo,
@@ -185,13 +185,13 @@ class _ClaimSuccessScreenState extends State<ClaimSuccessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: const EdgeInsets.only(left: 80.0, top: 80),
+          padding: const EdgeInsets.only(left: 40.0, top: 30),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Spacer(),
             Text("恭喜！請領取物品並關上門",
                 style:
-                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 40))),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Icon(Icons.lock, size: 80),
