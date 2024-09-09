@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Text("智慧失物招領",
                   style: GoogleFonts.notoSansTc(
-                      textStyle: TextStyle(fontSize: 60))),
+                      textStyle: TextStyle(fontSize: 40))),
               Spacer(
                 flex: 1,
               ),
@@ -107,18 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   ElevatedButton.icon(
                     icon: Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(28.0),
                       child: Icon(
                         Icons.store,
-                        size: 60,
+                        size: 40,
                       ),
                     ),
                     label: Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(28.0),
                       child: Text(
                         "拾獲失物",
                         style: GoogleFonts.notoSansTc(
-                            textStyle: TextStyle(fontSize: 60)),
+                            textStyle: TextStyle(fontSize: 40)),
                       ),
                     ),
                     onPressed: () {
@@ -141,17 +141,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         }));
                       },
                       icon: Padding(
-                        padding: const EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(28.0),
                         child: Icon(
                           Icons.shopping_bag,
-                          size: 60,
+                          size: 40,
                         ),
                       ),
                       label: Padding(
-                        padding: const EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(28),
                         child: Text("領取失物",
                             style: GoogleFonts.notoSansTc(
-                                textStyle: TextStyle(fontSize: 60))),
+                                textStyle: TextStyle(fontSize: 40))),
                       )),
                   Spacer(
                     flex: 1,
@@ -211,14 +211,14 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
-        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        padding: const EdgeInsets.only(left: 40.0, top: 30),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("請輸入領取驗證碼",
                   style: GoogleFonts.notoSansTc(
-                      textStyle: TextStyle(fontSize: 60))),
+                      textStyle: TextStyle(fontSize: 40))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -232,9 +232,9 @@ class _ClaimPasscodeScreenState extends State<ClaimPasscodeScreen> {
                     ),
                   ),
                   Container(
-                    height: 540,
-                    width: 420,
-                    padding: EdgeInsets.all(80),
+                    height: 360, 
+                    width: 270,
+                    padding: EdgeInsets.all(40),
                     child: GridView.count(
                       shrinkWrap: true,
                       crossAxisCount: 3,
@@ -332,19 +332,19 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
-        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        padding: const EdgeInsets.only(left: 40.0, top: 30),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("請將物品放入掃描室中",
                   style: GoogleFonts.notoSansTc(
-                      textStyle: TextStyle(fontSize: 60))),
+                      textStyle: TextStyle(fontSize: 40))),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Container(
                   //width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -382,7 +382,7 @@ class _ScanObjectScreenState extends State<ScanObjectScreen> {
                         },
                         icon: Icon(
                           Icons.camera_alt,
-                          size: 45,
+                          size: 40,
                         ),
                         label: Text(
                           "掃描",

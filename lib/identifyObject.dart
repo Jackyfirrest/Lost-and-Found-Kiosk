@@ -36,13 +36,13 @@ class _IdentifyObjectScreenState extends State<IdentifyObjectScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
-        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        padding: const EdgeInsets.only(left: 40.0, top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("請確認辨識結果",
                 style:
-                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 40))),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: DefaultTextStyle(
@@ -234,13 +234,13 @@ class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Padding(
-        padding: const EdgeInsets.only(left: 80.0, top: 80),
+        padding: const EdgeInsets.only(left: 40.0, top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("請輸入手機號碼",
                 style:
-                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 40))),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -254,9 +254,9 @@ class _EnterCellPhoneScreenState extends State<EnterCellPhoneScreen> {
                   ),
                 ),
                 Container(
-                  height: 540,
-                  width: 420,
-                  padding: EdgeInsets.all(80),
+                  height: 360,
+                  width: 270,
+                  padding: EdgeInsets.all(40),
                   child: GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: 3,
@@ -377,13 +377,13 @@ class _DropSuccessScreenState extends State<DropSuccessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: const EdgeInsets.only(left: 80.0, top: 80),
+          padding: const EdgeInsets.only(left: 40.0, top: 30),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Spacer(),
             Text("感謝！請將物品放入置物櫃中並關門",
                 style:
-                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 60))),
+                    GoogleFonts.notoSansTc(textStyle: TextStyle(fontSize: 40))),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Icon(Icons.lock, size: 80),
